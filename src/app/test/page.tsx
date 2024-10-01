@@ -1,19 +1,28 @@
 "use client";
 import React from "react";
+import Header from "@/components/layouts/Header"
+
+
+type Content = {
+  id: number;
+  type: string;
+  url: string;
+}
+
 
 function MainComponent() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [activeView, setActiveView] = React.useState("login");
-  const [collections, setCollections] = React.useState([]);
+  const [collections, setCollections] = React.useState<[Content]|[]>([]);
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // TODO: Implement actual login logic
     setIsLoggedIn(true);
     setActiveView("dashboard");
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // TODO: Implement actual registration logic
     setIsLoggedIn(true);
@@ -27,65 +36,65 @@ function MainComponent() {
 
   const handleScanQR = () => {
     // TODO: Implement QR code scanning logic
-    const newContent = {
+    let newContent = {
       id: Date.now(),
       type: "image",
       url: "/placeholder-image.jpg",
-    };
-    setCollections([...collections, newContent]);
+    } as Content;
+    let a = [...collections, newContent] as [Content];
+    setCollections(a);
   };
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans">
-      <header className="bg-blue-600 text-white p-4">
-        <h1 className="text-2xl font-bold">デジタルコンテンツコレクター</h1>
-      </header>
-
+      <Header title="デジタルコンテンツコレクター"></Header>
       <main className="container mx-auto p-4">
         {!isLoggedIn ? (
-          activeView === "login" ? (
-            <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold mb-6">ログイン</h2>
-              <form onSubmit={handleLogin} className="space-y-4">
-                <div>
-                  <label htmlFor="email" className="block mb-1">
+          <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold mb-6">
+              {activeView === "login" ? "ログイン" : "新規登録"}
+            </h2>
+            <form onSubmit={activeView === "login" ? handleLogin : handleRegister } className="space-y-4">
+              <div>
+                  <label htmlFor={activeView === "login" ? "email" : "register-email" } className="block mb-1">
                     メールアドレス
                   </label>
                   <input
                     type="email"
-                    id="email"
+                    id={activeView === "login" ? "email" : "register-email" }
                     name="email"
                     required
                     className="w-full px-3 py-2 border rounded"
                   />
-                </div>
-                <div>
-                  <label htmlFor="password" className="block mb-1">
-                    パスワード
-                  </label>
+              </div>
+              <div>
+                <label htmlFor={activeView === "login" ? "password" : "register-password" } className="block mb-1">
+                  パスワード
+                </label>
                   <input
                     type="password"
-                    id="password"
+                    id={activeView === "login" ? "password": "register-password" }
                     name="password"
                     required
                     className="w-full px-3 py-2 border rounded"
                   />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-                >
-                  ログイン
-                </button>
-              </form>
-              <div className="mt-4 text-center">
-                <button
-                  onClick={() => setActiveView("register")}
-                  className="text-blue-600 hover:underline"
-                >
-                  新規登録はこちら
-                </button>
               </div>
+              <button
+                type="submit"
+                className={activeView === "login" ? "w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700" : "w-full bg-green-600 text-white py-2 rounded hover:bg-green-700" }
+              >
+                {activeView === "login" ? "ログイン" : "登録" }
+              </button>
+            </form>
+            <div className="mt-4 text-center">
+              <button
+                onClick={() => setActiveView(activeView === "login" ? "register" : "login" )}
+                className="text-blue-600 hover:underline"
+              >
+                {activeView === "login" ? "新規登録はこちら" : "ログインはこちら" }
+              </button>
+            </div>
+            {activeView === "login" ? (
               <div className="mt-4 flex justify-center space-x-4">
                 <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
                   <i className="fab fa-google mr-2"></i>Google
@@ -94,52 +103,8 @@ function MainComponent() {
                   <i className="fab fa-facebook-f mr-2"></i>Facebook
                 </button>
               </div>
-            </div>
-          ) : (
-            <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold mb-6">新規登録</h2>
-              <form onSubmit={handleRegister} className="space-y-4">
-                <div>
-                  <label htmlFor="register-email" className="block mb-1">
-                    メールアドレス
-                  </label>
-                  <input
-                    type="email"
-                    id="register-email"
-                    name="email"
-                    required
-                    className="w-full px-3 py-2 border rounded"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="register-password" className="block mb-1">
-                    パスワード
-                  </label>
-                  <input
-                    type="password"
-                    id="register-password"
-                    name="password"
-                    required
-                    className="w-full px-3 py-2 border rounded"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
-                >
-                  登録
-                </button>
-              </form>
-              <div className="mt-4 text-center">
-                <button
-                  onClick={() => setActiveView("login")}
-                  className="text-blue-600 hover:underline"
-                >
-                  ログインはこちら
-                </button>
-              </div>
-            </div>
-          )
+            ) : "" }
+          </div>
         ) : (
           <div>
             <div className="flex justify-between items-center mb-6">
