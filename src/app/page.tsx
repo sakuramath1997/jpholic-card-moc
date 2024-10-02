@@ -12,6 +12,7 @@ type Content = {
 
 function MainComponent() {
   const [collections, setCollections] = React.useState<[Content]|[]>([]);
+  const [scannedResult, setScannedResult] = React.useState('');
 
   const handleScanQR = () => {
     // TODO: Implement QR code scanning logic
@@ -41,8 +42,9 @@ function MainComponent() {
         ))}
       </div>
       <ModalContainer buttonMessage="QRコードをスキャン">
-        <QrcodeReaderContainer/>
+        <QrcodeReaderContainer scannedResult = {scannedResult} setScannedResult = {setScannedResult}/>
       </ModalContainer>
+      <p>{scannedResult}</p>
     </React.Fragment>
   );
 }
