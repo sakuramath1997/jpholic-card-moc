@@ -20,7 +20,7 @@ function MainComponent() {
     const pattern = 'https://jpholic-card-moc.vercel.app/assets/';
     if(scannedResult.indexOf(pattern) === 0) {
       let copyedScannedResult = scannedResult;
-      let scannedAssetsId = copyedScannedResult.replace(pattern, "");
+      let scannedAssetsId = copyedScannedResult.replace(copyedScannedResult, "");
 //      setCount(count+1);
       setTest(scannedAssetsId);
     } else {
