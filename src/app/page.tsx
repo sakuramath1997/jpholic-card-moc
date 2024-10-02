@@ -14,15 +14,15 @@ function MainComponent() {
   const [collections, setCollections] = React.useState<[Content]|[]>([]);
   const [scannedResult, setScannedResult] = React.useState('');
   const [test, setTest] = React.useState('まだ読込まれていません');
-//  const [count, setCount] = React.useState<number>(0);
+  const [count, setCount] = React.useState<number>(0);
 
   useEffect(()=>{
     const pattern = 'https://jpholic-card-moc.vercel.app/assets/';
     if(scannedResult.indexOf(pattern) === 0) {
       let copyedScannedResult = scannedResult;
-      let scannedAssetsId = copyedScannedResult.replace(copyedScannedResult, "");
-//      setCount(count+1);
-      setTest(scannedAssetsId);
+      let scannedAssetsId = copyedScannedResult.replace(pattern, "");
+      setCount(count+1);
+      setTest(String(count) + scannedAssetsId);
     } else {
       setTest("読込んだ文字列は妥当なパターンではありません")
     }
