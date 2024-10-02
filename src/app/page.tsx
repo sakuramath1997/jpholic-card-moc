@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import ModalContainer from "@/components/elements/ModalContainer";
 import QrcodeReaderContainer from "@/components/elements/QRCodeReaderContainer";
 
@@ -13,6 +13,16 @@ type Content = {
 function MainComponent() {
   const [collections, setCollections] = React.useState<[Content]|[]>([]);
   const [scannedResult, setScannedResult] = React.useState('');
+  const [test, setTest] = React.useState('まだ読込まれていません');
+  const [count, setCount] = React.useState<number>(0);
+
+  useEffect(()=>{
+    const pattern = 'https://jpholic-card-moc.vercel.app/assets/';
+    if(scannedResult.indexOf(pattern) === 0) {
+      setCount(count+1);
+      setTest(String(count));
+    }
+  }, [scannedResult])
 
   const handleScanQR = () => {
     // TODO: Implement QR code scanning logic
@@ -44,7 +54,8 @@ function MainComponent() {
       <ModalContainer buttonMessage="QRコードをスキャン">
         <QrcodeReaderContainer scannedResult = {scannedResult} setScannedResult = {setScannedResult}/>
       </ModalContainer>
-      <p>{scannedResult}</p>
+      <p>読込んだ文字列: {scannedResult}</p>
+      <p>処理したデータ: {test}</p>
     </React.Fragment>
   );
 }
