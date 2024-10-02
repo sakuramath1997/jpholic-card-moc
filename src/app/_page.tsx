@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import ModalContainer from "@/components/elements/ModalContainer";
-import QrcodeReaderContainer from "@/components/elements/QRCodeReaderContainer";
 
 type Content = {
   id: number;
@@ -40,9 +39,12 @@ function MainComponent() {
           </div>
         ))}
       </div>
-      <ModalContainer buttonMessage="QRコードをスキャン">
-        <QrcodeReaderContainer/>
-      </ModalContainer>
+      <button
+        onClick={handleScanQR}
+        className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 fixed bottom-8 right-8 shadow-lg"
+      >
+        <i className="fas fa-qrcode mr-2"></i>QRコードをスキャン
+      </button>
     </React.Fragment>
   );
 }
