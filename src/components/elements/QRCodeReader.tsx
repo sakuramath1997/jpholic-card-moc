@@ -41,7 +41,7 @@ export default function QrcodeReader({
         console.error(err);
       });
   };
- 
+
   // スキャン開始
   const startScan = async () => {
     try {

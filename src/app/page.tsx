@@ -17,15 +17,26 @@ function MainComponent() {
   const [count, setCount] = React.useState<number>(0);
 
   useEffect(()=>{
-    const pattern = 'https://jpholic-card-moc.vercel.app/assets/';
-    if(scannedResult.indexOf(pattern) === 0) {
-      let copyedScannedResult = scannedResult;
-      let scannedAssetsId = copyedScannedResult.replace(pattern, "");
-      setCount(count+1);
-      setTest(String(count) + scannedAssetsId);
-    } else {
-      setTest("読込んだ文字列は妥当なパターンではありません")
-    }
+    (
+      async () => {
+        const pattern = 'https://jpholic-card-moc.vercel.app/assets/';
+        if(scannedResult.indexOf(pattern) === 0) {
+          let copyedScannedResult = scannedResult;
+          let scannedAssetsId = copyedScannedResult.replace(pattern, "");
+
+          let data = await fetch('http://localhost:3000/api/ownership', {method:'POST',headers:{aaaa:'hoo!'},body: scannedAssetsId});
+          let posts = await data.json()
+          console.log(data);
+          console.log(posts);
+          console.log(posts.name);
+      
+          setCount(count+1);
+          setTest(String(count) + scannedAssetsId);
+        } else {
+          setTest("読込んだ文字列は妥当なパターンではありません")
+        }
+      }
+    )()
   }, [scannedResult])
 
   const handleScanQR = () => {
@@ -38,6 +49,14 @@ function MainComponent() {
     let a = [...collections, newContent] as [Content];
     setCollections(a);
   };
+
+  const testAPI = async () => {
+    let data = await fetch('http://localhost:3000/api/test', {method:'POST',headers:{aaaa:'hoo!'},body: "Hello from Next.js"});
+    let posts = await data.json()
+    console.log(data);
+    console.log(posts);
+    console.log(posts.name);
+  }
 
   return (
     <React.Fragment>
@@ -60,6 +79,12 @@ function MainComponent() {
       </ModalContainer>
       <p>読込んだ文字列: {scannedResult}</p>
       <p>処理したデータ: {test}</p>
+      <button
+        onClick={testAPI}
+        className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 fixed bottom-8 right-8 shadow-lg"
+      >
+        a
+      </button>
     </React.Fragment>
   );
 }
