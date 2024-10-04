@@ -7,6 +7,7 @@ type Content = {
   id: number;
   type: string;
   url: string;
+  title: string;
 }
 
 
@@ -98,11 +99,24 @@ function MainComponent() {
             {item.type === "image" && (
                 <img
                 src={item.url}
-                alt="コレクションアイテム"
+                alt={'画像: ' + item.title}
                 className="w-full h-48 object-cover rounded"
                 />
             )}
-            {/* TODO: Add support for other content types */}
+            {item.type === "movie" && (
+                <img
+                src={item.url}
+                alt={'動画: ' + item.title}
+                className="w-full h-48 object-cover rounded"
+                />
+            )}
+            {item.type === "voice" && (
+                <img
+                src={item.url}
+                alt={'音声: ' + item.title}
+                className="w-full h-48 object-cover rounded"
+                />
+            )}
           </div>
         ))}
       </div>
