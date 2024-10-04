@@ -22,16 +22,13 @@ function MainComponent() {
         const pattern = 'https://jpholic-card-moc.vercel.app/assets/';
         if(scannedResult.indexOf(pattern) === 0) {
           let copyedScannedResult = scannedResult;
-          let scannedAssetsId = copyedScannedResult.replace(pattern, "");
-
-          let data = await fetch('http://localhost:3000/api/ownership', {method:'POST',headers:{aaaa:'hoo!'},body: scannedAssetsId});
-          let posts = await data.json()
-          console.log(data);
-          console.log(posts);
-          console.log(posts.name);
-      
+          //let scannedAssetsId = copyedScannedResult.replace(pattern, "");
+          //console.log(scannedAssetsId);
+          let response = await fetch('http://localhost:3000/api/ownership', {method:'POST',headers:{aaaa:'hoo!'},body: copyedScannedResult});
+          let responseJSON = await response.json()
+          console.log(responseJSON);
           setCount(count+1);
-          setTest(String(count) + scannedAssetsId);
+          setTest(String(count) + '回: ' + responseJSON.contents.assetInfo.title);
         } else {
           setTest("読込んだ文字列は妥当なパターンではありません")
         }
@@ -51,11 +48,20 @@ function MainComponent() {
   };
 
   const testAPI = async () => {
-    let data = await fetch('http://localhost:3000/api/test', {method:'POST',headers:{aaaa:'hoo!'},body: "Hello from Next.js"});
-    let posts = await data.json()
-    console.log(data);
-    console.log(posts);
-    console.log(posts.name);
+    const pattern = 'https://jpholic-card-moc.vercel.app/ownership/';
+    const dammyScannedResult = 'https://jpholic-card-moc.vercel.app/ownership/2'
+    if(dammyScannedResult.indexOf(pattern) === 0) {
+      let copyedScannedResult = dammyScannedResult;
+      //let scannedAssetsId = copyedScannedResult.replace(pattern, "");
+      //console.log(scannedAssetsId);
+      let response = await fetch('http://localhost:3000/api/ownership', {method:'POST',headers:{aaaa:'hoo!'},body: copyedScannedResult});
+      let responseJSON = await response.json()
+      console.log(responseJSON);
+      setCount(count+1);
+      setTest(String(count) + '回: ' + responseJSON.contents.assetInfo.title);
+    } else {
+      setTest("読込んだ文字列は妥当なパターンではありません")
+    }
   }
 
   return (

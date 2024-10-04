@@ -9,12 +9,8 @@ export function GET(request: NextRequest): NextResponse {
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
     // POST /api/users リクエストの処理
-    console.log("----------------------");
     const string = await new Response(request.body).text();
-    console.log(string);
     const responseBody = createResponse(string);
-    console.log(responseBody);
-    console.log("----------------------");
     let res: NextResponse = new NextResponse(JSON.stringify(responseBody));
     return res;
 }
@@ -36,14 +32,14 @@ function createResponse(input: string) {
             result.status = 400;
             Object.assign(result.contents, {message: assetInfo.contents.message});
         } else {
-            Object.assign(result.contents), {assetInfo: assetInfo.contents};
+            Object.assign(result.contents, {assetInfo: assetInfo.contents});
         }
     }
     return result;
 }
 
 function validateURL(input: string) {
-    const pattern = 'https://jpholic-card-moc.vercel.app/assets/';
+    const pattern = 'https://jpholic-card-moc.vercel.app/ownership/';
     let result = {
         status: 200,
         contents: {
