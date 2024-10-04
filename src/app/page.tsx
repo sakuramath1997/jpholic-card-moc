@@ -39,6 +39,15 @@ function MainComponent() {
           setCount(count+1);
           //setCount(Math.floor(Math.random() * 100));
           setTest(String(count) + '回: ' + responseJSON.contents.assetInfo.title);
+          
+          let assetInfo = responseJSON.contents.assetInfo;
+          handleScanQR(assetInfo.cardId, assetInfo.type, assetInfo.url, assetInfo.title);
+          //cardId: "2"
+          //type: "image" | "movie" | "voice"
+          //message: ""
+          //sambneil: ""
+          //title: "二つ目の作品（動画）"
+          //url: "https://jpholic-card-moc.vercel.app/assets/2
         } else {
           setTest(String(count) + '回: ' + "読込んだ文字列は妥当なパターンではありません！")
         }
@@ -46,12 +55,19 @@ function MainComponent() {
     )();
   }, [scannedResult])
 
-  const handleScanQR = () => {
+  const handleScanQR = (id: string = "id", type: string = "undefined", url: string = "https://jholic-card-moc.vercel.app/assets/", title: string = "") => {
     // TODO: Implement QR code scanning logic
     let newContent: Content = {
       id: Date.now(),
       type: "image",
       url: "/placeholder-image.jpg",
+      title: "",
+      //cardId: "2"
+      //type: "image" | "movie" | "voice"
+      //message: ""
+      //sambneil: ""
+      //title: "二つ目の作品（動画）"
+      //url: "https://jpholic-card-moc.vercel.app/assets/2
     } as Content;
     let a = [...collections, newContent] as [Content];
     setCollections(a);

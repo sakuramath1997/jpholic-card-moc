@@ -64,6 +64,7 @@ function getAssetInfo(input: string) {
         contents: {
             message: '',
             cardId: input,
+            type: "",
             title: '',
             sambneil: '',
             url: 'https://jpholic-card-moc.vercel.app/assets/' + input,
@@ -71,10 +72,13 @@ function getAssetInfo(input: string) {
     }
     if( input === '1' ) {
         result.contents.title = '一つ目の作品（画像）';
+        result.contents.type = 'image';
     } else if ( input === '2' ) {
         result.contents.title = '二つ目の作品（動画）';
+        result.contents.type = 'movie';
     } else if( input === '3' ) {
         result.contents.title = '三つ目の作品（ボイスメッセージ）';
+        result.contents.type = 'voice';
     } else {
         result.status = 400;
         result.contents.message = 'Not Found Specified Assets ID';
