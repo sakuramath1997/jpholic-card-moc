@@ -4,7 +4,7 @@ import ModalContainer from "@/components/elements/ModalContainer";
 import QrcodeReaderContainer from "@/components/elements/QRCodeReaderContainer";
 
 type Content = {
-  id: number;
+  id: string;
   type: string;
   url: string;
   title: string;
@@ -59,10 +59,10 @@ function MainComponent() {
   const handleScanQR = (id: string = "id", type: string = "undefined", url: string = "https://jholic-card-moc.vercel.app/assets/", title: string = "") => {
     // TODO: Implement QR code scanning logic
     let newContent: Content = {
-      id: Date.now(),
-      type: "image",
-      url: "/placeholder-image.jpg",
-      title: "",
+      id: id,
+      type: type,
+      url: url,
+      title: title,
       //cardId: "2"
       //type: "image" | "movie" | "voice"
       //message: ""
