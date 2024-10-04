@@ -96,6 +96,12 @@ function MainComponent() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {collections.map((item) => (
           <div key={item.id} className="bg-white p-4 rounded-lg shadow">
+            <p>
+              <span>type: {item.type}; </span>
+              <span>id: {item.id}; </span>
+              <span>title: {item.title}; </span>
+              <span>url: {item.url}; </span>
+            </p>
             {item.type === "image" && (
                 <img
                 src={item.url}
