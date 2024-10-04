@@ -19,12 +19,12 @@ function MainComponent() {
   useEffect(()=>{
     (
       async () => {
-        const pattern = 'https://jpholic-card-moc.vercel.app/assets/';
+        const pattern = 'https://jpholic-card-moc.vercel.app/ownership/';
         if(scannedResult.indexOf(pattern) === 0) {
           let copyedScannedResult = scannedResult;
           //let scannedAssetsId = copyedScannedResult.replace(pattern, "");
           //console.log(scannedAssetsId);
-          let response = await fetch('http://localhost:3000/api/ownership', {method:'POST',headers:{aaaa:'hoo!'},body: copyedScannedResult});
+          let response = await fetch('http://jpholic-card-moc.vercel.app/api/ownership', {method:'POST',headers:{aaaa:'hoo!'},body: copyedScannedResult});
           let responseJSON = await response.json()
           console.log(responseJSON);
           setCount(count+1);
@@ -54,7 +54,7 @@ function MainComponent() {
       let copyedScannedResult = dammyScannedResult;
       //let scannedAssetsId = copyedScannedResult.replace(pattern, "");
       //console.log(scannedAssetsId);
-      let response = await fetch('http://localhost:3000/api/ownership', {method:'POST',headers:{aaaa:'hoo!'},body: copyedScannedResult});
+      let response = await fetch('http://jpholic-card-moc.vercel.app/api/ownership', {method:'POST',headers:{aaaa:'hoo!'},body: copyedScannedResult});
       let responseJSON = await response.json()
       console.log(responseJSON);
       setCount(count+1);
