@@ -25,7 +25,7 @@ function MainComponent() {
           //let scannedAssetsId = copyedScannedResult.replace(pattern, "");
           //console.log(scannedAssetsId);
           let response = await fetch(
-            'http://jpholic-card-moc.vercel.app/api/ownership', 
+            'https://jpholic-card-moc.vercel.app/api/ownership', 
             {
               method: 'POST', 
               headers: {
