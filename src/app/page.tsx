@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import Image from "next/image";
 import ModalContainer from "@/components/elements/ModalContainer";
 import QrcodeReaderContainer from "@/components/elements/QRCodeReaderContainer";
 
@@ -103,25 +104,26 @@ function MainComponent() {
               <span>url: {item.url}; </span>
             </p>
             {item.type === "image" && (
-                <img
-                src={item.url}
-                alt={'画像: ' + item.title}
-                className="w-full h-48 object-cover rounded"
-                />
+                <div>
+                    <Image src="/image.jpg" alt="猫は最高に可愛い" width="200" height="200"/>
+                </div>
             )}
             {item.type === "movie" && (
-                <img
-                src={item.url}
-                alt={'動画: ' + item.title}
-                className="w-full h-48 object-cover rounded"
-                />
+              <div>
+                <video controls width="250">
+                  <source src="/movie.mp4" type="video/mp4"/>
+                  <a href="/movie.mp4">動画をDonwload</a>
+                </video>
+              </div>
             )}
             {item.type === "voice" && (
-                <img
-                src={item.url}
-                alt={'音声: ' + item.title}
-                className="w-full h-48 object-cover rounded"
-                />
+              <div>
+                <figure>
+                  <figcaption>音源を聞く：</figcaption>
+                  <audio controls src="/voice.mp3"></audio>
+                  <a href="/voice.mp3">音声をDownload </a>
+                </figure>
+              </div>
             )}
           </div>
         ))}
