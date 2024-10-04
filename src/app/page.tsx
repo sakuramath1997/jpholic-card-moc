@@ -36,7 +36,8 @@ function MainComponent() {
           );
           let responseJSON = await response.json()
           console.log(responseJSON);
-          setCount(Math.floor(Math.random() * 100));
+          setCount(count+1);
+          //setCount(Math.floor(Math.random() * 100));
           setTest(String(count) + '回: ' + responseJSON.contents.assetInfo.title);
         } else {
           setTest(String(count) + '回: ' + "読込んだ文字列は妥当なパターンではありません！")
