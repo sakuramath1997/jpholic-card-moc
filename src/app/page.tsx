@@ -24,16 +24,25 @@ function MainComponent() {
           let copyedScannedResult = scannedResult;
           //let scannedAssetsId = copyedScannedResult.replace(pattern, "");
           //console.log(scannedAssetsId);
-          let response = await fetch('http://jpholic-card-moc.vercel.app/api/ownership', {method:'POST',headers:{aaaa:'hoo!'},body: copyedScannedResult});
+          let response = await fetch(
+            'http://jpholic-card-moc.vercel.app/api/ownership', 
+            {
+              method: 'POST', 
+              headers: {
+                aaaa: 'hoo!'
+              }, 
+              body: copyedScannedResult
+            }
+          );
           let responseJSON = await response.json()
           console.log(responseJSON);
-          setCount(count+1);
+          setCount(Math.floor(Math.random() * 100));
           setTest(String(count) + '回: ' + responseJSON.contents.assetInfo.title);
         } else {
           setTest(String(count) + '回: ' + "読込んだ文字列は妥当なパターンではありません！")
         }
       }
-    )()
+    )();
   }, [scannedResult])
 
   const handleScanQR = () => {
