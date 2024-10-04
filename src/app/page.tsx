@@ -30,7 +30,7 @@ function MainComponent() {
           setCount(count+1);
           setTest(String(count) + '回: ' + responseJSON.contents.assetInfo.title);
         } else {
-          setTest("読込んだ文字列は妥当なパターンではありません")
+          setTest("読込んだ文字列は妥当なパターンではありません！")
         }
       }
     )()
